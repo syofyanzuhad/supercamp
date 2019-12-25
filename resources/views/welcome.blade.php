@@ -86,7 +86,7 @@
 
                 <div class="links">
                     {{-- <a href="https://api.supercampprogrammer.com/register">Register</a> --}}
-                    <a href="https://api.supercampprogrammer.com/login">Login</a>
+                    <a href="/login">Login</a>
                     <a href="https://supercampprogrammer.com">Supercamp</a>
                     <a href="https://github.com/syofyanzuhad">GitHub</a>
                 </div>

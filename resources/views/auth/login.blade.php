@@ -30,7 +30,7 @@
       <div class="form-group has-feedback">
         <input type="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
         @error('email')
-            <span class="invalid-feedback" role="alert">
+            <span class="invalid-feedback text-danger" role="alert">
                 <strong>Email atau Password yang anda masukkan salah !</strong>
             </span>
         @enderror
