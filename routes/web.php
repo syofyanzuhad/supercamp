@@ -31,6 +31,15 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::get('/home', 'HomeController@index')->name('home');
 
+    Route::get('/kelas', 'HomeController@kelas')->name('kelas');
+    Route::get('/pendaftar', 'HomeController@pendaftar')->name('pendaftar');
+    Route::get('/konfirmasi', 'HomeController@konfirmasi')->name('konfirmasi');
+    Route::get('/peserta', 'HomeController@peserta')->name('peserta');
+    Route::get('/user', 'HomeController@user')->name('user');
+    Route::get('/administrasi', 'HomeController@administrasi')->name('administrasi');
+    Route::get('/laporan', 'HomeController@laporan')->name('laporan');
+    Route::get('/sampah', 'HomeController@draft')->name('sampah');
+
     Route::get('register/show', 'ParticipantController@show_registered')->name('register/show');
     Route::get('confirmed/show', 'ParticipantController@show_confirmed')->name('confirmed/show');
     Route::get('participant/show', 'ParticipantController@show_participant')->name('participant/show');
@@ -40,14 +49,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('/class/show', 'LessonController@show_all')->name('class/show');
     Route::post('/class/delete', 'LessonController@deleteSelected')->name('class/delete');
     Route::resource('class', 'LessonController');
-
-    Route::get('/kelas', 'HomeController@kelas')->name('kelas');
-    Route::get('/pendaftar', 'HomeController@pendaftar')->name('pendaftar');
-    Route::get('/konfirmasi', 'HomeController@konfirmasi')->name('konfirmasi');
-    Route::get('/peserta', 'HomeController@peserta')->name('peserta');
-    Route::get('/user', 'HomeController@user')->name('user');
-    Route::get('/administrasi', 'HomeController@administrasi')->name('administrasi');
-    Route::get('/laporan', 'HomeController@laporan')->name('laporan');
 
     Route::get('/mentor', 'HomeController@mentor')->name('mentor');
     Route::get('/mentor/show', 'MentorController@show_mentor')->name('mentor/show');
@@ -74,6 +75,10 @@ Route::group(['middleware' => ['auth']], function() {
         Route::patch('/status/{id}', 'StatusController@update_status')->name('status/update');
         Route::delete('/status/{id}', 'StatusController@destroy_status')->name('status/destroy');
         Route::post('/status/delete', 'StatusController@deleteSelected_status')->name('status/delete');
+
+        Route::get('/draft/show', 'ParticipantController@show_draft')->name('draft/show');
+        Route::get('/draft/{id}/edit', 'ParticipantController@edit_draft')->name('draft/edit');
+
     });
 
 });

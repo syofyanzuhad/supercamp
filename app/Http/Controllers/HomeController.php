@@ -15,6 +15,13 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->kelas = DB::table('classname')->get();
+        $this->draft = DB::table('draft')->get();
+        $this->mentor = DB::table('mentor')->get();
+        $this->pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
+        ->get();
+        $this->peserta = DB::table('participants')->where('status_user', '6')
+        ->get();
     }
 
     /**
@@ -24,13 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('home', compact('kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('home', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function kelas()
     {
@@ -42,112 +48,114 @@ class HomeController extends Controller
         ->join('duration', 'duration.id_duration', '=', 'lessons.class_duration')
         ->join('status', 'status.id_status', '=', 'lessons.status_lesson')
         ->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
         // if (count($Lesson) == null) {
         //     return response()->json(['msg' => 'lesson not found'], 404);
         // }
-        return view('kelas/kelas', compact('Lesson', 'kelas', 'mentor', 'pendaftar', 'peserta', 'status', 'month'));
+        return view('kelas/kelas', compact('Lesson', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft',  'status', 'month'));
 
     }
     public function mentor()
     {
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('mentor/mentor', compact('kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('mentor/mentor', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function pendaftar()
     {
         $status = DB::table('status')->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('pendaftar/pendaftar', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('pendaftar/pendaftar', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function konfirmasi()
     {
         $status = DB::table('status')->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('konfirmasi/konfirmasi', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('konfirmasi/konfirmasi', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function peserta()
     {
         $status = DB::table('status')->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('peserta/peserta', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('peserta/peserta', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function pelajaran()
     {
         $status = DB::table('status')->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('settings/pelajaran', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('settings/pelajaran', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function administrasi()
     {
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('administrasi', compact('kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('administrasi', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function laporan()
     {
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('laporan', compact('kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('laporan', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function user()
     {
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('user', compact('kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('user', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
     public function status()
     {
         $status = DB::table('status')->get();
-        $kelas = DB::table('classname')->get();
-        $mentor = DB::table('mentor')->get();
-        $pendaftar = DB::table('participants')->whereIn('status_user', ['4', '5'])
-        ->get();
-        $peserta = DB::table('participants')->where('status_user', '6')
-        ->get();
-        return view('settings/status', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta'));
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('settings/status', compact('status', 'kelas', 'mentor', 'pendaftar', 'peserta', 'draft'));
     }
+    public function draft()
+    {
+        $status = DB::table('status')->get();
+        $draft = DB::table('draft')->get();
+        $kelas = $this->kelas;
+        $draft = $this->draft;
+        $mentor = $this->mentor;
+        $pendaftar = $this->pendaftar;
+        $peserta = $this->peserta;
+        return view('settings/draft', compact('kelas', 'mentor', 'pendaftar', 'peserta', 'draft',  'draft', 'status'));
+    }
+
 
 }

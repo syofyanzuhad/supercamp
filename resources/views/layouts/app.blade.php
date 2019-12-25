@@ -98,6 +98,7 @@
           <ul class="treeview-menu">
             <li><a href=" {{route('pelajaran')}} "><i class="fa fa-book"></i>Pelajaran</a></li>
             <li><a href="{{route('status')}}"><i class="fa fa-podcast"></i>Status</a></li>
+            <li><a href="{{route('sampah')}}"><i class="fa fa-minus-circle"></i>Draft<span class="badge badge-info pull-right"> {{count($draft)}} </span></a></li>
           </ul>
         </li>
     @endif

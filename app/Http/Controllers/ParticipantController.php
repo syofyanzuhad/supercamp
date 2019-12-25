@@ -298,6 +298,53 @@ class ParticipantController extends Controller
      * @param  \App\Participant  $Participant
      * @return \Illuminate\Http\Response
      */
+
+    public function show_draft()
+    {
+        $draft = DB::table('draft')
+        ->join('classname', 'classname.id_classname', '=', 'draft.class')
+        ->join('lessons', 'lessons.id', '=', 'draft.class')
+        ->join('month', 'month.id_month', '=', 'draft.student_month')
+        ->join('duration', 'duration.id_duration', '=', 'lessons.class_duration')
+        ->join('status', 'status.id_status', '=', 'draft.status_user')
+        ->get();
+        $no = 0;
+            $data = array();
+            foreach($draft as $list){
+            $no ++;
+            $row = array();
+            $row[] = "<input type='checkbox' name='id[]'' value='".$list->id."'>";
+            $row[] = $no;
+            $row[] = $list->classname;
+            $row[] = $list->student_date;
+            $row[] = $list->month;
+            $row[] = $list->student_year;
+            $row[] = $list->name;
+            $row[] = $list->city;
+            $row[] = $list->status;
+            $row[] = "<div class='btn-group'>
+                    <a onclick='infoForm(".$list->id.")' class='btn btn-primary btn-sm'><i class='fa fa-info'></i></a>
+                    <a onclick='deleteData(".$list->id.")' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></div>";
+            $data[] = $row;
+            }
+            
+            $output = array("data" => $data);
+            return response()->json($output);
+    }
+
+    public function edit_draft($id)
+    {
+        $student = DB::table('draft')
+        ->where('id', $id)
+        ->join('classname', 'classname.id_classname', '=', 'draft.class')
+        ->join('month', 'month.id_month', '=', 'draft.student_month')
+        ->join('status', 'status.id_status', '=', 'draft.status_user')
+        ->first();
+        $lesson = DB::table('classname')->get();
+        echo json_encode([$student, $lesson]);
+    }
+
+
     public function destroy($id)
     {
         $student = Participant::find($id);
@@ -315,6 +362,52 @@ class ParticipantController extends Controller
             $lesson->quota += 1;
         }
         $lesson->update();
+        $draft = DB::table('draft')->where('id_number', $student->id_number)
+        ->first();
+        if ($draft != null) {
+            // dd($draft);
+            $drafts = DB::table('draft')->where('id_number', $student->id_number)->update(
+                [
+                    'id_number' => $student->id_number,
+                    'name' => $student->name,
+                    'image' => $student->image,
+                    'phone' => $student->phone,
+                    'email' => $student->email,
+                    'city' => $student->city,
+                    'address' => $student->address,
+                    'birth_place' => $student->birth_place,
+                    'birth_date' => $student->birth_date,
+                    'class' => $student->class,
+                    'student_date' => $student->student_date,
+                    'student_month' => $student->student_month,
+                    'student_year' => $student->student_year,
+                    't_shirt' => $student->t_shirt
+
+                ]
+            );
+        } else {
+            // dd($draft);
+            $drafts = DB::table('draft')->insert(
+                [
+                    'id_number' => $student->id_number,
+                    'name' => $student->name,
+                    'image' => $student->image,
+                    'phone' => $student->phone,
+                    'email' => $student->email,
+                    'city' => $student->city,
+                    'address' => $student->address,
+                    'birth_place' => $student->birth_place,
+                    'birth_date' => $student->birth_date,
+                    'class' => $student->class,
+                    'student_date' => $student->student_date,
+                    'student_month' => $student->student_month,
+                    'student_year' => $student->student_year,
+                    't_shirt' => $student->t_shirt
+
+                ]
+            );
+            // $drafts->save();
+        }
         // dd($lesson);
         $student = Participant::find($id);
         $student->delete();

@@ -68,6 +68,48 @@ INSERT INTO `date` VALUES (1,'1',NULL,NULL),(2,'2',NULL,NULL),(3,'3',NULL,NULL),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `draft`
+--
+
+DROP TABLE IF EXISTS `draft`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `draft` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id_number` bigint(20) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` bigint(20) NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birth_place` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `birth_date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `class` bigint(20) unsigned NOT NULL,
+  `student_date` enum('1','2','3','4') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `student_month` enum('1','2','3','4','5','6','7','8','9','10','11','12') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `student_year` smallint(6) NOT NULL,
+  `t_shirt` enum('S','M','L','XL','XXL') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status_user` enum('1','2','3','4','5','6') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '4',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `draft_id_number_unique` (`id_number`),
+  UNIQUE KEY `draft_phone_unique` (`phone`),
+  UNIQUE KEY `draft_email_unique` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `draft`
+--
+
+LOCK TABLES `draft` WRITE;
+/*!40000 ALTER TABLE `draft` DISABLE KEYS */;
+/*!40000 ALTER TABLE `draft` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `duration`
 --
 
@@ -199,7 +241,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +250,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_06_030901_create_status_table',1),(5,'2019_12_06_031005_create_month_table',1),(6,'2019_12_06_031020_create_date_table',1),(7,'2019_12_06_031035_create_duration_table',1),(8,'2019_12_07_011332_create_mentor_table',1),(9,'2019_12_07_034248_create_classname_table',1),(10,'2019_12_08_095141_create_lessons_table',1),(11,'2019_12_09_065836_create_participants_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_resets_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_06_030901_create_status_table',1),(5,'2019_12_06_031005_create_month_table',1),(6,'2019_12_06_031020_create_date_table',1),(7,'2019_12_06_031035_create_duration_table',1),(8,'2019_12_07_011332_create_mentor_table',1),(9,'2019_12_07_034248_create_classname_table',1),(10,'2019_12_08_095141_create_lessons_table',1),(11,'2019_12_09_065836_create_participants_table',1),(12,'2019_12_25_001904_create_draft_table',1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +400,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'superprogrammer','superprogrammer@gmail.com',NULL,'$2y$10$3tqLFWcRrwzOolyK1DDs7.7DFTrHfKA1giSGmJKv953sGR/4qm7ni','0',NULL,NULL,NULL);
+INSERT INTO `users` VALUES (1,'superprogrammer','superprogrammer@gmail.com',NULL,'$2y$10$HyEqPcxeO8MViFJky.JvSevqUdOCoj6ZCJoausk9l4qT11Iw5SMbS','0',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -371,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-17 15:01:53
+-- Dump completed on 2019-12-25  8:24:02
