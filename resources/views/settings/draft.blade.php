@@ -123,7 +123,7 @@
         $('input[name=_method]').val('PATCH');
         $('#modal-form form')[0].reset();
         $.ajax({
-        url : "draft/"+id+"/edit",
+        url : "setting/draft/"+id+"/edit",
         type : "GET",
         dataType : "JSON",
         success : function(data){

@@ -12,11 +12,11 @@ class TwilioWhatsApp
     // public $no_wa;
 
     public function send($no_wa, $message) {
-        $dotenv = Dotenv::create(__DIR__);
-        $dotenv->load();
+        // $dotenv = Dotenv::create(__DIR__);
+        // $dotenv->load();
     
-        $twilioSid    = getenv('TWILIO_SID');
-        $twilioToken  = getenv('TWILIO_TOKEN');
+        // $twilioSid    = getenv('TWILIO_SID');
+        // $twilioToken  = getenv('TWILIO_TOKEN');
         
         // $twilio = new Client($twilioSid, $twilioToken);
         $twilio = new Client("ACb4fd589b23b2c0d1f086a603d124c829", "271cd979f26121b5fab0514e9613eec0");
