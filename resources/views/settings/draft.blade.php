@@ -155,8 +155,8 @@
         });
     }
 
-    // function deleteData(id){
-    //     if(confirm("Apakah yakin data akan dihapus?")){
+    function deleteData(id){
+        if(confirm("Tidak ada data yang benar-benar bisa dihapus !")){
     //     $.ajax({
     //         url : "status/"+id,
     //         type : "POST",
@@ -168,8 +168,8 @@
     //         alert("Tidak dapat menghapus data!");
     //         }
     //     });
-    //     }
-    // }
+        }
+    }
 
     // function deleteAll(){
     //     if($('input:checked').length < 1){
