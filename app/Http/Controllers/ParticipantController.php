@@ -146,7 +146,7 @@ class ParticipantController extends Controller
     {
         $validator = Validator::make($request->all(), [ 
             'nama' => 'required',
-            'id_number' => 'required|integer|unique:participants',
+            'id_number' => 'required|unique:participants',
             'photo' => 'required',
             'phone' => 'required|integer|unique:participants',
             'email' => 'required|email|unique:participants',
@@ -251,7 +251,7 @@ class ParticipantController extends Controller
     {
         $validator = Validator::make($request->all(), [ 
             'nama' => 'required',
-            'id_number' => 'required|integer',
+            'id_number' => 'required',
             // 'photo' => 'required',
             'phone' => 'required|integer',
             'email' => 'required|email',
@@ -311,9 +311,10 @@ class ParticipantController extends Controller
         $no = 0;
             $data = array();
             foreach($draft as $list){
+                // dd($draft);
             $no ++;
             $row = array();
-            $row[] = "<input type='checkbox' name='id[]'' value='".$list->id."'>";
+            $row[] = "<input type='checkbox' name='id[]'' value='".$list->id_draft."'>";
             $row[] = $no;
             $row[] = $list->classname;
             $row[] = $list->student_date;
@@ -323,8 +324,8 @@ class ParticipantController extends Controller
             $row[] = $list->city;
             $row[] = $list->status;
             $row[] = "<div class='btn-group'>
-                    <a onclick='infoForm(".$list->id.")' class='btn btn-primary btn-sm'><i class='fa fa-info'></i></a>
-                    <a onclick='deleteData(".$list->id.")' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></div>";
+                    <a onclick='infoForm(".$list->id_draft.")' class='btn btn-primary btn-sm'><i class='fa fa-info'></i></a>
+                    <a onclick='deleteData(".$list->id_draft.")' class='btn btn-danger btn-sm'><i class='fa fa-trash'></i></a></div>";
             $data[] = $row;
             }
             
@@ -335,7 +336,7 @@ class ParticipantController extends Controller
     public function edit_draft($id)
     {
         $student = DB::table('draft')
-        ->where('id', $id)
+        ->where('id_draft', $id)
         ->join('classname', 'classname.id_classname', '=', 'draft.class')
         ->join('month', 'month.id_month', '=', 'draft.student_month')
         ->join('status', 'status.id_status', '=', 'draft.status_user')

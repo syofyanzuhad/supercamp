@@ -15,7 +15,7 @@ class CreateParticipantsTable extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->bigIncrements('id_participant');
-            $table->bigInteger('id_number')->unique();
+            $table->string('id_number')->unique();
             $table->string('name');
             $table->longText('image');
             $table->bigInteger('phone')->unique();

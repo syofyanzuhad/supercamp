@@ -14,8 +14,8 @@ class CreateDraftTable extends Migration
     public function up()
     {
         Schema::create('draft', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('id_number')->unique();
+            $table->bigIncrements('id_draft');
+            $table->string('id_number')->unique();
             $table->string('name');
             $table->longText('image');
             $table->bigInteger('phone')->unique();
